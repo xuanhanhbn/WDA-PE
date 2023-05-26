@@ -1,0 +1,40 @@
+@{
+    List<Exam> exams = ViewBag.exams;
+}
+
+<table class="table">
+    <thead>
+    <th>Subject</th>
+    <th>Start Time</th>
+    <th>Exam Date</th>
+    <th>Duration</th>
+    <th>Class Room</th>
+    <th>Faculty</th>
+    <th>Status</th>
+    </thead>
+    <tbody>
+    @foreach( var e in exams)
+    {
+        <tr>
+            <td>@e.Subject.SubjectName</td>
+            <td>@e.DateTime.ToShortTimeString()</td>
+            <td>@e.DateTime.ToLongDateString()</td>
+            <td>@e.Duration</td>
+            <td>@e.Classroom.RoomNo</td>
+            <td>@e.Faculty.Name</td>
+            @if (e.DateTime.AddMinutes(e.Duration).CompareTo(DateTime.Now) < 0)
+                {
+                   <td> Done </td>
+                }       
+            @if (e.DateTime.AddMinutes(e.Duration).CompareTo(DateTime.Now) > 0 && e.DateTime.CompareTo(DateTime.Now) <=0)
+                {
+                   <td> On Going </td>
+                }       
+            @if (e.DateTime.CompareTo(DateTime.Now) > 0)
+                {
+                   <td> Up Coming </td>
+                }
+            </tr>
+    }
+    </tbody>
+</table>

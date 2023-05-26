@@ -1,0 +1,48 @@
+@model Exam
+@{
+    List<Subject> subjects = ViewBag.subjects;
+    List<Classroom> classrooms = ViewBag.classrooms;
+    List<Faculty> faculties = ViewBag.faculties;
+}
+
+<h1>Create New Exam</h1>
+<form action="~/Exam/Add" method="post">
+    <div class="form-group">
+        <label>Exam Subject</label>
+        <select name="Subject" class="form-control">
+            @foreach (var s in subjects)
+            {
+                <option value=@s.SubjectId>@s.SubjectName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Start Time</label>
+        <input class="form-control" asp-for="DateTime"  asp-format="{0:yyyy-MM-ddTHH:mm}" name="DateTime" required="required" type="datetime-local"/>
+    </div>
+    <div class="form-group">
+        <label>Exam Duration</label>
+        <input class="form-control" name="Duration" required="required" type="number" min=0/>
+    </div>
+    <div class="form-group">
+        <label>Class Room</label>
+        <select name="Classroom" class="form-control">
+            @foreach (var c in classrooms)
+            {
+                <option value=@c.ClassroomId>@c.RoomNo</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Exam Subject</label>
+        <select name="Faculty" class="form-control">
+            @foreach (var f in faculties)
+            {
+                <option value=@f.FacultyId>@f.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+</form>
